@@ -177,7 +177,7 @@ def gestion_proyecto():
         databases = client.list_database_names()
 
         # 2) Quitamos las bases de sistema que no queremos mostrar
-        system_dbs = ['admin', 'local', 'config', 'administracion']
+        system_dbs = ['admin', 'local', 'config']
         databases = [db for db in databases if db not in system_dbs]
 
         # 3) Obtenemos el valor de selected_db sin el typo “=-”
