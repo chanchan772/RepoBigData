@@ -1,7 +1,5 @@
 # 📚🔍 BigData-MiProyecto
 
-![BigData Banner](https://raw.githubusercontent.com/tu_usuario/tu_repositorio/main/docs/banner.png)
-
 ---
 
 ## 🚀 Descripción General
