@@ -1,32 +1,94 @@
+/* Colores sobrios: tonos de azul y gris */
+:root {
+    --color-fondo: #f7fafc;        /* Gris claro casi blanco */
+    --color-header-bg: #ffffff;    /* Blanco puro para el header */
+    --color-header-text: #1a202c;  /* Azul muy oscuro para texto del header */
+    --color-contenedor-bg: #edf2f7;/* Gris muy suave */
+    --color-contenedor-text: #2d3748; /* Gris oscuro para legibilidad del texto */
+    --color-footer-bg: #ffffff;    /* Blanco puro para el footer */
+    --color-footer-text: #4a5568;  /* Gris medio para texto del footer */
+    --color-nav-link: #1a202c;     /* Azul muy oscuro para los enlaces */
+    --color-nav-link-hover: #2b6cb0; /* Azul medio para hover */
+}
+
+/* Fondo general */
 body {
-     background: linear-gradient(to right, #BE93D4, #e0c8f5); 
+    background-color: var(--color-fondo);
     min-height: 100vh;
     margin: 0;
     padding: 0;
 }
 
+/* HEADER */
 .header {
-    background-color: rgba(99, 66, 116, 0.9); /* Un morado oscuro y profundo */
+    background-color: var(--color-header-bg);
     padding: 1rem 0;
-    color: white; 
+    color: var(--color-header-text);
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+/* Enlaces de navegación en el header */
+.header .nav-link {
+    color: var(--color-nav-link) !important;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+
+.header .nav-link:hover {
+    color: var(--color-nav-link-hover) !important;
+}
+
+/* Contenedor principal (equivalente a .container) */
 .container {
-    background-color: rgba(186, 130, 219, 0.9); /* Lila medio */
+    background-color: var(--color-contenedor-bg);
     padding: 2rem;
     border-radius: 10px;
     margin-top: 2rem;
-    color: #333; /* Un gris oscuro para el texto dentro del contenedor para buena legibilidad */
+    color: var(--color-contenedor-text);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+/* Encabezados dentro de .container (por legibilidad) */
+.container h1,
+.container h2,
+.container h3,
+.container h6 {
+    color: var(--color-contenedor-text);
+}
+
+/* FOOTER */
 footer {
-    background-color: rgba(147, 112, 219, 0.9); /* MediumPurple con transparencia */
+    background-color: var(--color-footer-bg);
     padding: 1rem 0;
     margin-top: 2rem;
-    color: white; /* Texto blanco para el pie de página */
+    color: var(--color-footer-text);
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    font-size: 0.9rem;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.nav-link, h1, h2, h3, h6 {
-    color: white; 
+/* Enlaces en el footer (si los hay) */
+footer a {
+    color: var(--color-footer-text);
+    text-decoration: none;
 }
 
+footer a:hover {
+    color: var(--color-nav-link-hover);
+}
+
+/* Ajuste responsivo: reducir padding en pantallas pequeñas */
+@media (max-width: 576px) {
+    .container {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+    .header {
+        padding: 0.75rem 0;
+    }
+    footer {
+        padding: 0.75rem 0;
+    }
+}

@@ -1,78 +1,305 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BigData-MiProyecto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="{{ url_for('static', filename='css/landingPage.css') }}" rel="stylesheet">
-    <style>
-        body {
-            background-color: hwb(0 94% 6%); /* Fondo general gris claro */
-        }
-        .header {
-            background-color: #f8f9fa; /* Fondo claro para el header */
-            padding: 10px 0;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .header .nav-link {
-            color: #800080 !important; /* Morado oscuro para los enlaces del header */
-        }
-        .jumbotron {
-            background-color: #e0b0ff; /* Fondo morado para el cuadro principal */
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 5px;
-        }
-        .jumbotron h1 {
-            font-style: italic;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .footer {
-            background-color: #f8f9fa;
-            padding: 10px 0;
-            border-top: 1px solid #dee2e6;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BigData – Mi Proyecto</title>
+
+  <!-- Bootstrap 5.3 (CDN) -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+  />
+
+  <!-- Hoja de estilos propia (si necesitas) -->
+  <link
+    href="{{ url_for('static', filename='css/landingPage.css') }}"
+    rel="stylesheet"
+  />
+
+  <!-- Estilos adicionales en línea -->
+  <style>
+    /* Paleta sobria: tonos de azul y gris */
+    :root {
+      --color-principal: #1a202c;    /* Azul muy oscuro */
+      --color-secundario: #2d3748;   /* Azul/Gris oscuro */
+      --color-fondo: #f7fafc;        /* Gris claro casi blanco */
+      --color-card-bg: #edf2f7;      /* Gris muy suave */
+      --color-texto: #2d3748;        /* Gris oscuro */
+      --color-acento: #4a5568;       /* Gris medio para botones/enlaces */
+      --color-hover: #2b6cb0;        /* Azul medio para hover */
+    }
+
+    body {
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+    }
+
+    /* Header: fondo claro con sombras sutiles */
+    .header {
+      background-color: #ffffff;
+      padding: 15px 0;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .header .nav-link {
+      color: var(--color-principal) !important;
+      font-weight: 500;
+      transition: color 0.2s ease-in-out;
+    }
+
+    .header .nav-link:hover {
+      color: var(--color-hover) !important;
+    }
+
+    .header h1 {
+      font-weight: 600;
+      color: var(--color-principal);
+    }
+
+    /* Jumbotron (o “hero”): tarjeta con sombra */
+    .jumbotron {
+      background-color: var(--color-card-bg);
+      padding: 30px 20px;
+      margin-top: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .jumbotron h1 {
+      font-style: normal;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 8px;
+      color: var(--color-principal);
+    }
+
+    .jumbotron p.lead {
+      text-align: center;
+      color: var(--color-secundario);
+    }
+
+    /* Sección de presentación */
+    .presentacion {
+      margin-top: 60px;
+    }
+
+    .presentacion img {
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      max-width: 100%;
+      height: auto;
+    }
+
+    .presentacion .texto {
+      color: var(--color-principal);
+    }
+
+    /* Sección de características */
+    .features {
+      margin-top: 60px;
+    }
+
+    .feature-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card img {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .feature-card .card-body {
+      color: var(--color-secundario);
+    }
+
+    /* Footer: fijo en la parte inferior */
+    .footer {
+      background-color: #ffffff;
+      padding: 12px 0;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.9rem;
+      color: var(--color-secundario);
+    }
+
+    .footer p {
+      margin: 2px 0;
+    }
+
+    /* Espaciamiento adicional para que el contenido no quede tapado por el footer */
+    .main-content {
+      padding-bottom: 120px;
+    }
+
+    /* Ajuste responsivo: jumbotron y secciones más compactas en pantallas pequeñas */
+    @media (max-width: 576px) {
+      .jumbotron {
+        padding: 20px 10px;
+        margin-top: 20px;
+      }
+      .presentacion {
+        margin-top: 30px;
+      }
+      .features {
+        margin-top: 40px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h3 mb-0">Mi Proyecto</h1>
-                <nav>
-                    <ul class="nav">
-                        <li class="nav-item"><a class="nav-link" href="/buscador">Buscador</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/about">Acerca de</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/login">Ingresar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/contacto">Contacto</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
+  <!-- HEADER -->
+  <header class="header">
     <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4">Proyecto de BigData</h1>
-            <p class="lead text-center">Para la Maestría de Analítica de Datos</p>
-        </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h4 mb-0">Mi Proyecto BigData</h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/buscador">Buscador</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">Acerca de</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Ingresar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contacto">Contacto</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="container main-content">
+    <!-- JUMBOTRON -->
+    <div class="jumbotron">
+      <h1 class="display-5">Proyecto de BigData</h1>
+      <p class="lead">Para la Maestría de Analítica de Datos</p>
     </div>
 
-    <footer class="footer text-center">
-        <p class="mb-0">Creado por Alejandra Rojas Diaz</p>
-        <p class="mb-0">2025</p>
-        <p class="mb-0">Versión Mayo 2025</p>
-    </footer>
+    <!-- SECCIÓN DE PRESENTACIÓN -->
+    <section class="presentacion row align-items-center">
+      <div class="col-lg-6 mb-4">
+        <h2 class="texto">¿Qué es nuestro proyecto?</h2>
+        <p class="texto">
+          Este proyecto de BigData está diseñado para ofrecer soluciones integrales en la gestión y análisis de grandes volúmenes de datos. 
+          Gracias a la combinación de tecnologías como <strong>MongoDB</strong> para almacenamiento flexible, 
+          <strong>Elasticsearch</strong> para búsquedas potentes y <strong>Flask</strong> para un backend ligero, 
+          hemos construido una plataforma donde la creación de bases de datos, la indexación de documentos y la visualización de resultados 
+          son procesos sencillos e intuitivos.
+        </p>
+        <p class="texto">
+          Nuestro objetivo es facilitar a estudiantes y profesionales del área de Data Analytics 
+          una interfaz amigable para explorar, consultar y gestionar datos de manera eficiente, 
+          con un enfoque en rendimiento y escalabilidad.
+        </p>
+      </div>
+      <div class="col-lg-6 text-center">
+        <!-- Imagen relacionada a Big Data desde Unsplash (placeholder) -->
+        <img src="https://20sagencia.com/wp-content/uploads/2019/09/big-980x551.jpg.webp" alt="Big Data Analytics" />
+      </div>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
+    <!-- SECCIÓN DE CARACTERÍSTICAS / FEATURES -->
+    <section class="features">
+      <h2 class="text-center mb-5" style="color: var(--color-principal);">Características Destacadas</h2>
+      <div class="row gy-4">
+        <!-- Tarjeta 1: Gestión de Bases de Datos -->
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpBTzWFHwhv4ZZwAA1hG7jX45dDc6bqrlElA&s"
+              class="card-img-top"
+              alt="Gestión de Bases de Datos"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Gestión de Bases de Datos</h5>
+              <p class="card-text">
+                Crea y administra múltiples bases de datos y colecciones de forma sencilla 
+                usando un entorno web. Consulta el conteo de documentos, elimina y crea colecciones 
+                con un solo clic.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Tarjeta 2: Indexación en Elasticsearch -->
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <img
+              src="https://miro.medium.com/v2/resize:fit:2000/1*DfBbVqPXfIXGFQCa1BrV8g.jpeg"
+              class="card-img-top"
+              alt="Indexación en Elasticsearch"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Indexación en Elasticsearch</h5>
+              <p class="card-text">
+                Sube archivos JSON comprimidos en formato ZIP y automatiza la indexación en Elasticsearch. 
+                Aprovecha potentes búsquedas de texto completo y filtros avanzados.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Tarjeta 3: Búsqueda Avanzada -->
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <img
+              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvUpcwNyM9ZiOVXQzvOTc4FUJwcdSPif0u6GoC2aSQlFg7rxWeZ67LjaBpLzTOfTnzDdn0OxotmMIANoPXdXjbutVLTFqfj3n0ElAtnmv9FchrisDeHSWIQ-nM7Cla5v7Xv2hg1Av1OLfZ/s1600/bu%25CC%2581squeda+avanzada+google.gif"
+              class="card-img-top"
+              alt="Búsqueda Avanzada"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Búsqueda Avanzada</h5>
+              <p class="card-text">
+                Realiza consultas de búsqueda por texto o por campo específico, 
+                además de filtros por rango de fechas. Visualiza tendencias mediante histogramas 
+                y agrupaciones por categorías.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE LLAMADO A LA ACCIÓN -->
+    <section class="mt-5 text-center">
+      <a href="/login" class="btn btn-primary btn-lg" style="background-color: var(--color-hover); border-color: var(--color-hover);">
+        Ingresar al Sistema
+      </a>
+    </section>
+  </div> <!-- FIN .container -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="mb-0">Creado por Sebastian Mateus Villegas</p>
+    <p class="mb-0">2025</p>
+    <p class="mb-0">Versión Junio 2025</p>
+  </footer>
+
+  <!-- Scripts de Bootstrap (opcional) -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
 </body>
 </html>

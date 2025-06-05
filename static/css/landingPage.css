@@ -1,24 +1,64 @@
+/* Variables de color para mantener coherencia con estilo sobrio */
+:root {
+    --color-fondo-inicial: #f7fafc;       /* Gris claro casi blanco */
+    --color-fondo-final: #edf2f7;         /* Gris muy suave */
+    --color-header-bg: rgba(255, 255, 255, 0.95); /* Blanco semitransparente para el header */
+    --color-container-bg: rgba(255, 255, 255, 0.95); /* Blanco semitransparente para el contenedor */
+    --color-footer-bg: #ffffff;           /* Blanco puro para el footer */
+    --color-footer-text: #4a5568;         /* Gris medio para texto del footer */
+}
 
+/* Fondo general: degradado muy sutil de gris a gris más suave */
 body {
-    background: linear-gradient(to right, #800080, #D8BFD8); /* Morado oscuro a Morado claro */
+    background: linear-gradient(
+        to right,
+        var(--color-fondo-inicial),
+        var(--color-fondo-final)
+    );
     min-height: 100vh;
     margin: 0;
     padding: 0;
 }
+
+/* HEADER */
 .header {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: var(--color-header-bg);
     padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
+
+/* CONTENEDOR PRINCIPAL */
 .container {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: var(--color-container-bg);
     padding: 2rem;
     border-radius: 10px;
     margin-top: 2rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
+
+/* FOOTER */
 footer {
-    background-color: rgba(128, 0, 128, 0.9); /* Morado oscuro */
+    background-color: var(--color-footer-bg);
     padding: 1rem 0;
     margin-top: 2rem;
-    color: #666;
+    color: var(--color-footer-text);
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    font-size: 0.9rem;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
 }
-    
+
+/* Ajustes responsivos: espaciados reducidos en pantallas pequeñas */
+@media (max-width: 576px) {
+    .container {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+    .header {
+        padding: 0.75rem 0;
+    }
+    footer {
+        padding: 0.75rem 0;
+    }
+}
