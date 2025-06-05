@@ -163,17 +163,36 @@ def gestion_proyecto():
     if 'usuario' not in session:
         return redirect(url_for('login'))
 
+    client = connect_mongo()
+    if not client:
+        # Si la conexión a MongoDB falló, devolvemos un template con el error
+        return render_template('gestion/index.html',
+                            error_message='Error al conectar con MongoDB. Por favor, verifica tus credenciales.',
+                            version=VERSION_APP,
+                            creador=CREATOR_APP,
+                            usuario=session['usuario'])
+
     try:
-        client = connect_mongo()
+        # 1) Listamos todas las bases de datos
         databases = client.list_database_names()
+
+        # 2) Quitamos las bases de sistema que no queremos mostrar
         system_dbs = ['admin', 'local', 'config', 'administracion']
         databases = [db for db in databases if db not in system_dbs]
 
-        selected_db = request.form.get('database') if request.method == 'POST' else request.args.get('database')
+        # 3) Obtenemos el valor de selected_db sin el typo “=-”
+        if request.method == 'POST':
+            selected_db = request.form.get('database')
+        else:
+            selected_db = request.args.get('database')
+
         collections_data = []
 
+        # 4) Si el usuario ya escogió una base de datos
         if selected_db:
+            # Cambiamos al contexto de esa base
             db = client[selected_db]
+            # Listamos las colecciones
             collections = db.list_collection_names()
             for idx, coll_name in enumerate(collections, 1):
                 coll = db[coll_name]
@@ -184,24 +203,24 @@ def gestion_proyecto():
                     'count': count
                 })
 
-        return render_template(
-            'gestion/index.html',
-            databases=databases,
-            selected_db=selected_db,
-            collections_data=collections_data,
-            version=VERSION_APP,
-            creador=CREATOR_APP,
-            usuario=session['usuario']
-        )
+        # 5) Renderizamos la plantilla, pasándole las bases encontradas y el selected_db
+        return render_template('gestion/index.html',
+                            databases=databases,
+                            selected_db=selected_db,
+                            collections_data=collections_data,
+                            version=VERSION_APP,
+                            creador=CREATOR_APP,
+                            usuario=session['usuario'])
+    except Exception as e:  
+        # Cualquier otro error al listar bases o colecciones
+        return render_template('gestion/index.html',
+                            error_message=f'Error interno: {str(e)}',
+                            version=VERSION_APP,
+                            creador=CREATOR_APP,
+                            usuario=session['usuario'])
+    finally:
+        client.close()
 
-    except Exception as e:
-        return render_template(
-            'gestion/index.html',
-            error_message=f'Error al conectar con MongoDB: {str(e)}',
-            version=VERSION_APP,
-            creador=CREATOR_APP,
-            usuario=session.get('usuario')
-        )
 
 
 @app.route('/crear-coleccion-form/<database>')
